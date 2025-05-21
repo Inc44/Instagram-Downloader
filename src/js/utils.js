@@ -263,12 +263,15 @@ function renderMedias(data)
 		.toString()
 		.padStart(2, '0');
 	const date = `${year}${month}${day}_${hours}${minutes}${seconds}`;
-	data.medias.forEach(item =>
+	data.medias.forEach((item, index) =>
 	{
+		const order = (index + 1)
+			.toString()
+			.padStart(3, '0');
 		const attributes = {
 			class: 'medias-item',
 			src: item.url,
-			title: `${data.user.username} | ${item.id} | ${date}`,
+			title: `${data.user.username} | ${date} | ${order}`,
 			controls: ''
 		};
 		const ITEM_TEMPLATE = `<div>
