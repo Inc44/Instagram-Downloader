@@ -237,15 +237,8 @@ async function handleDownload()
 	renderMedias(data);
 }
 
-function renderMedias(data)
+function formatTimestamp(timestamp)
 {
-	const TITLE_CONTAINER = document.querySelector('.title-container')
-		.firstElementChild;
-	const MEDIAS_CONTAINER = document.querySelector('.medias-container');
-	MEDIAS_CONTAINER.replaceChildren();
-	if (!data) return;
-	const fragment = document.createDocumentFragment();
-	const timestamp = new Date(data.date * 1000);
 	const year = timestamp.getFullYear();
 	const month = (timestamp.getMonth() + 1)
 		.toString()
@@ -262,9 +255,29 @@ function renderMedias(data)
 	const seconds = timestamp.getSeconds()
 		.toString()
 		.padStart(2, '0');
-	const date = `${year}${month}${day}_${hours}${minutes}${seconds}`;
+	return `${year}${month}${day}_${hours}${minutes}${seconds}`;
+}
+
+function renderMedias(data)
+{
+	const TITLE_CONTAINER = document.querySelector('.title-container')
+		.firstElementChild;
+	const MEDIAS_CONTAINER = document.querySelector('.medias-container');
+	MEDIAS_CONTAINER.replaceChildren();
+	if (!data) return;
+	const fragment = document.createDocumentFragment();
 	data.medias.forEach((item, index) =>
 	{
+		let timestamp = null;
+		if (item.taken_at)
+		{
+			timestamp = new Date(item.taken_at * 1000);
+		}
+		else
+		{
+			timestamp = new Date(data.date * 1000);
+		}
+		date = formatTimestamp(timestamp);
 		const order = (index + 1)
 			.toString()
 			.padStart(3, '0');
