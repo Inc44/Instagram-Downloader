@@ -106,7 +106,7 @@ async function saveZip()
 				title: media.title.replaceAll(' | ', '_'),
 				data: blob
 			};
-			data.title = media.nodeName === 'VIDEO' ? `${data.title}.mp4` : `${data.title}.jpeg`;
+			data.title = media.nodeName === 'VIDEO' ? `${data.title}.mp4` : `${data.title}.jpg`;
 			count++;
 			DOWNLOAD_BUTTON.textContent = `${count}/${medias.length}`;
 			return data;
@@ -309,7 +309,7 @@ function renderMedias(data)
 				if (item.isVideo) e.preventDefault();
 				selectBox.classList.toggle('checked');
 			}
-			else saveMedia(media, media.title.replaceAll(' | ', '_') + `${item.isVideo ? '.mp4' : '.jpeg'}`);
+			else saveMedia(media, media.title.replaceAll(' | ', '_') + `${item.isVideo ? '.mp4' : '.jpg'}`);
 		});
 		fragment.appendChild(itemDOM);
 	});
